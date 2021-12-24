@@ -46,18 +46,16 @@ const GalleryRender = ({ search, onModalOpen }) => {
   }, [page]);
   useEffect(() => {
     if (page > 1) {
-      smoothScroll();
+      smoothScroll(searchArr[searchArr.length - 10].id);
     }
   }, [searchArr]);
 
   function onLoadMore() {
     setPage(page + 1);
   }
-  function smoothScroll() {
+  function smoothScroll(id) {
     console.log('smooth scroll');
-    const element = document.getElementById(
-      searchArr[searchArr.length - 10].id,
-    );
+    const element = document.getElementById(id);
     element.scrollIntoView({
       behavior: 'smooth',
       block: 'end',
