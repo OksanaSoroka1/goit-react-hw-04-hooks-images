@@ -24,9 +24,15 @@ const GalleryRender = ({ search, onModalOpen }) => {
     if (search !== '') {
       setStatus(Status.PENDING);
       setSearchArr([]);
-      setPage(1);
+      setPage(0);
     }
   }, [search]);
+
+  useEffect(() => {
+    if (status === 'pending') {
+      setPage(1);
+    }
+  }, [status]);
 
   useEffect(() => {
     if (search === '') {
@@ -41,9 +47,11 @@ const GalleryRender = ({ search, onModalOpen }) => {
         .catch(error => {
           setError(error);
           setStatus(Status.REJECTED);
+          setPage(0);
         });
     }
   }, [page]);
+
   useEffect(() => {
     if (page > 1) {
       smoothScroll(searchArr[searchArr.length - 10].id);
